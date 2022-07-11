@@ -1,0 +1,142 @@
+import numpy as np
+import os
+nombre=[];rut=[];lugar=[];entrada=[];personas=[nombre,rut,lugar,entrada]
+ganancias = np.array([])
+arreglo = np.arange(1,101)
+asientos = arreglo.reshape(10,10)
+Platinum = 0
+Gold = 0
+Silver = 0
+def asiento_usado():
+    asientos[np.where(asientos == a)]=0
+    lugar.append(a)
+while True:
+    asistentes = np.array(0)
+    os.system('cls')
+    opc=input("""            MENU
+
+1.-Comprar entradas
+2.-Mostrar ubicaciones disponibles
+3.-Ver listado de asistentes
+4.-Mostrar ganancias totales
+5.-Salir
+
+Ingrese una opcion: """)
+
+    if opc=='1':
+        os.system('cls')
+        name=input("Ingrese nombre: ")
+        nombre.append(name)
+        os.system('cls')
+        while True:
+            os.system('cls')
+            run=input("Ingrese rut: ")
+            if run[0:2].isnumeric() and run[2:3]=="." and run[3:6].isnumeric() and run[6:7]=="." and run[7:10].isnumeric() and run[10:11]=="-" and run[11:12].isalnum() and len(run)==12:
+                rut.append(run)
+                break
+            if run[0:8].isnumeric() and run[8:9]=="-" and run[9:10].isalnum() and len(run)==10:
+                rut.append(f"{run[0:2]}.{run[2:5]}.{run[5:8]}{run[8:9]}{run[9:10]}")
+                break
+            if run[0:8].isnumeric() and run[8:9].isalnum() and len(run)==9:
+                rut.append(f"{run[0:2]}.{run[2:5]}.{run[5:8]}-{run[8:9]}")
+                break
+            else:
+                input(f"""El rut ({run}) ingresado es invalido, Asegurese de haberlo ingresado correctamente.
+
+
+Presione ENTER para continuar""")
+
+        os.system('cls')
+        while True:
+            os.system('cls')
+            print(f"""           ASIENTOS DISPONIBLES
+
+{(asientos)}     Los asientos marcados con un numero 0 no estan disponibles
+""")
+            a=int(input("Elija un asiento: "))
+            if a>0 and a<=20:
+                os.system('cls')
+                opc=input(f"""
+Usted a elegido entrada Platinum (Asiento numero: {a}) con un precio de $120.000 pesos (1.- Continuar / 2.- Elegir otro asiento)
+
+Ingrese una opcion: """)
+                if opc == '1':
+                    os.system('cls')
+                    entrada.append("Platinum")
+                    ganancias = np.append(ganancias,120000)
+                    Platinum = Platinum + 1
+                    asiento_usado()
+                    input(f"""Usted a comprado entrada Platinum (Asiento numero: {a}), Presione ENTER para continuar.""")
+                    break
+                if opc == '2':
+                    pass
+            if a>20 and a<=50:
+                os.system('cls')
+                opc=input(f"""
+Usted a elegido entrada Gold (Asiento numero: {a}) con un precio de $80.000 pesos (1.- Continuar / 2.- Elegir otro asiento)
+
+Ingrese una opcion: """)
+                if opc == '1':
+                    os.system('cls')
+                    entrada.append("Gold")
+                    ganancias = np.append(ganancias,80000)
+                    Gold = Gold + 1
+                    asiento_usado()
+                    input(f"""Usted a comprado entrada Gold (Asiento numero: {a}), Presione ENTER para continuar.""")
+                    break
+                if opc == '2':
+                    pass
+            if a>50 and a<=100:
+                os.system('cls')
+                opc=input(f"""
+Usted a elegido entrada Silver (Asiento numero: {a}) con un precio de $50.000 pesos (1.- Continuar / 2.- Elegir otro asiento)
+
+Ingrese una opcion: """)
+                if opc == '1':
+                    os.system('cls')
+                    entrada.append("Silver")
+                    ganancias = np.append(ganancias,50000)
+                    Silver = Silver + 1
+                    asiento_usado()
+                    input(f"""Usted a comprado entrada Silver (Asiento numero: {a}), Presione ENTER para continuar.""")
+                    break
+                if opc == '2':
+                    pass
+
+    if opc=='2':
+        os.system('cls')
+        input(f"""{asientos}
+
+Presione ENTER para continuar""")
+
+    if opc=='3':
+        asistentes = np.array(personas)
+        os.system('cls')
+        rep=len(rut)
+        print("NOMBRE        |         RUT         |         ASIENTO         |         ENTRADA")
+        for i in range(rep):
+            print(f"""--------------------------------------------------------------------------------------
+{asistentes[0][i]}             {asistentes[1][i]}                 {asistentes[2][i]}                     {asistentes[3][i]}""")
+        input("""
+
+Presiones ENTER para continuar""")
+    if opc=='4':
+        os.system('cls')
+        print(f"""ENTRADAS VENDIDAS
+
+Platinum: {Platinum} ({Platinum * 120000})
+Gold: {Gold} ({Gold * 80000})
+Silver: {Silver} ({Silver * 50000})
+Ganancias totales: {ganancias.sum()}""")
+        input("""
+
+Presiones ENTER para continuar""")
+
+    if opc=='5':
+        os.system('cls')
+        print("""Gracias por utilizar este programa!!!
+
+Jordan Twentythree
+
+Version 2.0""")
+        break
